@@ -70,8 +70,8 @@
         <article>
         <div class = "container-fluid">
             <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
+                <div class="col-md-3 col-xs-1"></div>
+                <div class="col-md-6 col-xs-10">
                     <form action="#" autocomplete="off" class="search_form">
                         <fieldset class="url">
                             <input id="url" type="text" name="url" required>
@@ -103,7 +103,7 @@
                     </article>
                     </c:forEach>
                 </div>
-                <div class="col-md-3"></div>
+                <div class="col-md-3 col-xs-1"></div>
             </div>
         </div>
         </article>
