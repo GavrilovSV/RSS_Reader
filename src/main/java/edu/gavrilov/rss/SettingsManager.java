@@ -47,6 +47,7 @@ public class SettingsManager {
 
     }
 
+
     public void deleteChannel(String channelToRemove) throws IOException {
 
         File channel = new File(filename);
@@ -69,7 +70,6 @@ public class SettingsManager {
 
 
     }
-
 
 
 

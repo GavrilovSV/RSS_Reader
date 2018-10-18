@@ -1,5 +1,9 @@
 package edu.gavrilov.configuration;
 
+import edu.gavrilov.rss.NewsManager;
+import edu.gavrilov.rss.SettingsManager;
+import edu.gavrilov.services.FileUrlsManager;
+import edu.gavrilov.services.UrlsManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -44,6 +48,23 @@ public class WebAppConfig implements WebMvcConfigurer {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(User.withDefaultPasswordEncoder().username("user").password("password").roles("USER").build());
         return manager;
+    }
+
+
+    @Bean
+    public NewsManager newsManager() {
+        return new NewsManager();
+    }
+
+
+    @Bean
+    public SettingsManager settingsManager() {
+        return new SettingsManager();
+    }
+
+    @Bean
+    public UrlsManager fileUrlsManager() {
+        return new FileUrlsManager();
     }
 
 }

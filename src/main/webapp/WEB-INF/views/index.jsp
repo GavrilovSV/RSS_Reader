@@ -59,7 +59,7 @@
             <a href=http://localhost:8080/">RSS Reader</a>
         </h2>
         <ul>
-            <li><a href="#1">  Мои каналы</a>
+            <li><a href="/mychannels">  Мои каналы</a>
             <li><a href="#3">  Мой аккаунт</a>
             <li><a href="#2">  О сайте</a>
         </ul>

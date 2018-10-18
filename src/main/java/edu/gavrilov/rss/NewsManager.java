@@ -3,6 +3,7 @@ package edu.gavrilov.rss;
 import com.rometools.rome.feed.synd.SyndContent;
 import com.rometools.rome.feed.synd.SyndEnclosure;
 import com.rometools.rome.feed.synd.SyndEntry;
+import com.rometools.rome.io.FeedException;
 import de.l3s.boilerpipe.BoilerpipeProcessingException;
 import de.l3s.boilerpipe.document.TextDocument;
 import de.l3s.boilerpipe.extractors.CommonExtractors;
@@ -19,14 +20,18 @@ import java.util.*;
 
 public class NewsManager {
 
+    private static List<Channel> channels = new ArrayList<>();
+
+    XMLReader xmlReader = new XMLReader();
+
     public List listNews(List urls) {
         List allNews = new ArrayList();
-        XMLReader xmlReader = new XMLReader();
 
         for (int i = 0; i < urls.size(); i++) {
             try{
                 List news = xmlReader.listNews(urls.get(i).toString());
                 news = news.subList(0, 20);
+
                 if (news != null) {
                     allNews.addAll(news);
                 }
@@ -39,21 +44,22 @@ public class NewsManager {
         return allNews;
     }
 
-/*    public String obtainPageContent(String url) {
 
-        final de.l3s.boilerpipe.sax.HTMLDocument htmlDoc;
-        try {
-            htmlDoc = HTMLFetcher.fetch(new URL(url));
-            final TextDocument doc = new BoilerpipeSAXInput(htmlDoc.toInputSource()).getTextDocument();
-            String content = CommonExtractors.ARTICLE_EXTRACTOR.getText(doc);
-            return content;
-        } catch (IOException | SAXException | BoilerpipeProcessingException e) {
-            e.printStackTrace();
+    public List getChannelList(List urls) {
+
+        //List<Channel> channels = new ArrayList<>();
+
+        for (int i = 0; i < urls.size(); i++) {
+            try {
+                channels.add(xmlReader.getChannel(urls.get(i).toString()));
+            } catch (IOException | FeedException e) {
+                e.printStackTrace();
+            }
         }
 
-        return null;
+        return channels;
 
-    }*/
+    }
 
 
     private List sortNews(List listNews) {
@@ -65,8 +71,7 @@ public class NewsManager {
             String pic = list.get(0).getUrl();
 
             String text = Jsoup.parse(entry.getDescription().getValue()).text();
-/*            String content = obtainPageContent(entry.getLink());
-            System.out.println(content);*/
+
 
             news.add(new News(entry.getTitle(),
                     entry.getLink(),
