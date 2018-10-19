@@ -28,4 +28,5 @@ public class FileUrlsManager implements UrlsManager {
         return channels;
 
     }
+
 }

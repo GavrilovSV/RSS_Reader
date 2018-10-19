@@ -56,9 +56,10 @@
     <nav class="nav">
         <label for="nav-toggle" class="nav-toggle" onclick></label>
         <h2 class="logo">
-            <a href=http://localhost:8080/">RSS Reader</a>
+            <a href=http://localhost:8080/">Моя лента</a>
         </h2>
         <ul>
+            <li><a href="/">  Моя лента</a>
             <li><a href="/mychannels">  Мои каналы</a>
             <li><a href="#3">  Мой аккаунт</a>
             <li><a href="#2">  О сайте</a>
@@ -88,7 +89,7 @@
                     <article class = "blog_post">
                     <div class="row container-fluid">
                         <div class = "col-md-4 div-img">
-                            <a href="${item.url}" target="_blank"><img class = "pic_margin img-thumbnail" src="${item.picture}" /></a>
+                            <a href="${item.url}" target="_blank"><img class = "pic_margin img-thumbnail" src="${item.picture}" onerror = "this.src = '/resources/icons/npa.jpg'" /></a>
                         </div>
                         <div class = "col-md-8">
                             <a href="${item.url}" target="_blank"><h6><b>${item.title}</b></h6></a>

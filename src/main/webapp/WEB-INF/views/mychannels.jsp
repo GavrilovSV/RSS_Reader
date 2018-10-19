@@ -7,6 +7,7 @@
     <title>Мои каналы</title>
 
     <link rel="icon" href = "/resources/icons/g48.ico"/>
+    <link href = "/resources/css/main.css" rel = "stylesheet">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 
@@ -94,10 +95,39 @@
 </head>
 <body>
 
+    <input type="checkbox" id="nav-toggle" hidden>
+
+    <nav class="nav">
+        <label for="nav-toggle" class="nav-toggle" onclick></label>
+        <h2 class="logo">
+            <a href=http://localhost:8080/">Мои каналы</a>
+        </h2>
+        <ul>
+            <li><a href="/">  Моя лента</a>
+            <li><a href="/mychannels">  Мои каналы</a>
+            <li><a href="#3">  Мой аккаунт</a>
+            <li><a href="#2">  О сайте</a>
+        </ul>
+    </nav>
+
     <div class="cont-fluid">
         <div class="row">
             <div class = "col-md-3"></div>
-            <div class = "col-md-6"><p/><p/><div align = "center">Мои каналы</div><p/><p/>
+            <div class = "col-md-6">
+
+                <form action="#" autocomplete="off" class="search_form">
+                    <fieldset class="url">
+                        <input id="url" type="text" name="url" required>
+                        <label for="url">
+                            <i class="fa fa-search"></i>
+                            Поиск
+                        </label>
+                        <div class="after"></div>
+                    </fieldset>
+
+                </form>
+
+                <p/><p/>
 
               <ul>
                 <c:forEach items="${channels}" var="channel">

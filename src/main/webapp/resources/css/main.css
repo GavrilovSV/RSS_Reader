@@ -264,6 +264,7 @@ p {
 */
 
 [id='nav-toggle']:checked ~ main > article {
+    transition: all 0.3s;
     -webkit-transform: translateX(160px);
     -moz-transform: translateX(160px);
     transform: translateX(160px);
@@ -377,7 +378,7 @@ body {
 .nav > ul {
     display: block;
     margin: 0;
-    padding: 0;
+    padding-left: 15px;
     list-style: none;
 }
 

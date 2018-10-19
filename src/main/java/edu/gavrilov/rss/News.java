@@ -8,21 +8,16 @@ public class News {
     private String description;
     private long time;
 
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
-
     public News(String title, String url, String picture, String description, long time) {
         this.title = title;
         this.url = url;
         this.picture = picture;
         this.description = description;
         this.time = time;
+    }
+
+    public String getPicture() {
+        return picture;
     }
 
     public String getDescription() {

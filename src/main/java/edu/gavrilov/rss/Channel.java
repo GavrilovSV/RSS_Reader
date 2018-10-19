@@ -26,10 +26,6 @@ public class Channel {
         return icon;
     }
 
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
     public String getDescription() {
 
         return description;

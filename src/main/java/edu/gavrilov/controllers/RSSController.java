@@ -1,10 +1,9 @@
 package edu.gavrilov.controllers;
 
-import com.rometools.rome.feed.synd.SyndEntry;
 import edu.gavrilov.rss.Channel;
 import edu.gavrilov.rss.News;
 import edu.gavrilov.rss.NewsManager;
-import edu.gavrilov.rss.SettingsManager;
+import edu.gavrilov.services.ChannelsManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,20 +16,16 @@ import java.util.List;
 @Controller
 public class RSSController {
 
-
     @Autowired
     NewsManager newsManager;
 
     @Autowired
-    SettingsManager settingsManager;
+    ChannelsManager channelsManager;
 
     @GetMapping("/")
     public String main(Model model) throws IOException {
 
-       // SettingsManager settingsManager = new SettingsManager();
-        List urls = settingsManager.getURLs();
-       // NewsManager newsManager = new NewsManager();
-        List<News> news = newsManager.listNews(urls);
+        List<News> news = newsManager.listNews();
         model.addAttribute("news", news);
         return "index";
 
@@ -39,21 +34,18 @@ public class RSSController {
     @GetMapping("/mychannels")
     public String myChannels(Model model) throws IOException {
 
-     //   SettingsManager settingsManager = new SettingsManager();
-        List urls = settingsManager.getURLs();
-      //  NewsManager newsManager = new NewsManager();
-        List<Channel> channels = newsManager.getChannelList(urls);
+        List<Channel> channels = channelsManager.getChannelsList();
         model.addAttribute("channels", channels);
         return "mychannels";
 
     }
 
     @GetMapping("/delete/{channel_id}")
-    public String deleteChannel(@PathVariable long channel_id, Model model) {
+    public String deleteChannel(@PathVariable int channel_id, Model model) {
 
-
-
+        channelsManager.deleteChannel(channel_id);
         return "redirect:/mychannels";
+
     }
 
 

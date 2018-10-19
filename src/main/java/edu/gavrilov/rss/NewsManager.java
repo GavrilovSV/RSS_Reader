@@ -1,66 +1,46 @@
 package edu.gavrilov.rss;
 
-import com.rometools.rome.feed.synd.SyndContent;
 import com.rometools.rome.feed.synd.SyndEnclosure;
 import com.rometools.rome.feed.synd.SyndEntry;
-import com.rometools.rome.io.FeedException;
-import de.l3s.boilerpipe.BoilerpipeProcessingException;
-import de.l3s.boilerpipe.document.TextDocument;
-import de.l3s.boilerpipe.extractors.CommonExtractors;
-import de.l3s.boilerpipe.sax.BoilerpipeSAXInput;
-import de.l3s.boilerpipe.sax.HTMLFetcher;
+import edu.gavrilov.services.UrlsManager;
 import edu.gavrilov.xml.XMLReader;
 import org.jsoup.Jsoup;
-import org.xml.sax.SAXException;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.*;
 
 public class NewsManager {
 
+    private UrlsManager urlsManager;
     private static List<Channel> channels = new ArrayList<>();
+    private XMLReader xmlReader = new XMLReader();
 
-    XMLReader xmlReader = new XMLReader();
+    public NewsManager(UrlsManager urlsManager) {
+        this.urlsManager = urlsManager;
+    }
 
-    public List listNews(List urls) {
+    public List listNews() {
+
         List allNews = new ArrayList();
-
+        List<String> urls = null;
+        try {
+            urls = urlsManager.getUrlsList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         for (int i = 0; i < urls.size(); i++) {
             try{
-                List news = xmlReader.listNews(urls.get(i).toString());
+                List news = xmlReader.listNews(urls.get(i));
                 news = news.subList(0, 20);
-
-                if (news != null) {
-                    allNews.addAll(news);
-                }
+                allNews.addAll(news);
             } catch (Exception e) {
-                continue;
+                e.printStackTrace();
             }
         }
         allNews = sortNews(allNews);
 
         return allNews;
     }
-
-
-    public List getChannelList(List urls) {
-
-        //List<Channel> channels = new ArrayList<>();
-
-        for (int i = 0; i < urls.size(); i++) {
-            try {
-                channels.add(xmlReader.getChannel(urls.get(i).toString()));
-            } catch (IOException | FeedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return channels;
-
-    }
-
 
     private List sortNews(List listNews) {
         List news = new ArrayList();

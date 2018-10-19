@@ -5,21 +5,23 @@ import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 import edu.gavrilov.rss.Channel;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+
 
 public class FileChannelsManager implements ChannelsManager {
 
-    @Autowired
     UrlsManager urlsManager;
 
-    private List<Channel> channelsList;
+    private List<Channel> channelsList = new ArrayList<>();
 
-    {
+    public FileChannelsManager(UrlsManager urlsManager) {
+
+        this.urlsManager = urlsManager;
 
         try {
 
@@ -33,6 +35,7 @@ public class FileChannelsManager implements ChannelsManager {
                 SyndFeedInput input = new SyndFeedInput();
                 feed = input.build(new XmlReader(connection));
                 Channel channel = new Channel(feed.getImage().getUrl(), feed.getLink(), feed.getTitle(), feed.getDescription());
+                channelsList.add(channel);
             }
 
 
@@ -67,4 +70,5 @@ public class FileChannelsManager implements ChannelsManager {
         channelsList.remove(index);
 
     }
+
 }
