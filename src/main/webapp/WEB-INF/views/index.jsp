@@ -88,10 +88,10 @@
                     <c:forEach items = "${news}" var = "item">
                     <article class = "blog_post">
                     <div class="row container-fluid">
-                        <div class = "col-md-4 div-img">
+                        <div class = "col-md-4 col-sm-4 div-img">
                             <a href="${item.url}" target="_blank"><img class = "pic_margin img-thumbnail" src="${item.picture}" onerror = "this.src = '/resources/icons/npa.jpg'" /></a>
                         </div>
-                        <div class = "col-md-8">
+                        <div class = "col-md-8 col-sm-8">
                             <a href="${item.url}" target="_blank"><h6><b>${item.title}</b></h6></a>
                             <p><h6>
                             <small>

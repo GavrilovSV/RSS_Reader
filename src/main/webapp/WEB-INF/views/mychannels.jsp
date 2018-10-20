@@ -9,21 +9,86 @@
     <link rel="icon" href = "/resources/icons/g48.ico"/>
     <link href = "/resources/css/main.css" rel = "stylesheet">
 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 
     <!-- Google Web Fonts  -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900&amp;subset=cyrillic" rel="stylesheet">
 
+
     <style>
 
         @import url("https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
+
+        a:hover { color: #000;
+            text-decoration: none;}
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+
+        .footer_background {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: #eeeeee;
+            opacity: 0.8;
+            z-index: 0;
+            border-top: 1px solid #ccc;
+        }
+
+        .footer {
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: fixed;
+            width: 25%;
+            height: 80px;
+            bottom:0%;
+            left:50%;
+            transform: translate(-50%, 0);
+
+        }
+
+        .add_button {
+            background-color: #16a085;
+            border: none;
+            color: #dadada;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            margin: 4px 2px;
+            cursor: pointer;
+            z-index: 1;
+            -webkit-transition: color .25s ease-in-out;
+            -moz-transition: color .25s ease-in-out;
+            transition: color .25s ease-in-out;
+        }
+
+        .add_button:hover {
+            color: #f4f4f4;
+        }
+
+        @media screen and (max-width: 576px) {
+            .footer {
+                float: none;
+                width: 100%;
+            }
+        }
+
 
         body {
             background-color: #eeeeee;
@@ -71,6 +136,7 @@
 
         li:last-child {
             border: none;
+            margin-bottom: 85px;
         }
 
         li{
@@ -89,44 +155,42 @@
             transform: scale(1.05);
         }
 
-        .footer_btn {
-            width: 100px;
-            height: 50px;
-            position: fixed;
-            background: green;
-            left: 50%;
-            bottom: 5%;
-
-            transform: translate(-50%, -5%);
-        }
-
-
-        .footer {
-            margin-left: auto;
-            margin-right: auto;
-            width: 200px;
-            background-color: #eeeeee;
-            height: 150px;
-            position: fixed;
-/*            opacity: 50%;
-            position: fixed;
-            left: 50%;
-            bottom: 1%;
-            transform: translate(-50%, 0);
-            filter: blur(5px);
-            -webkit-filter: blur(5px);
-            -moz-filter: blur(5px);
-            -o-filter: blur(5px);
-            -ms-filter: blur(5px);*/
-        }
-
-
-
     </style>
 
 
 </head>
 <body>
+
+
+        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Новый канал</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action = "/addchannel" method="post" role="form">
+                        <div class="modal-body mx-3">
+
+                            <div class="md-form mb-4">
+                                <input type="text" name="newUrl"/>
+                                <input type="hidden"
+                                       name="${_csrf.parameterName}"
+                                       value="${_csrf.token}"/>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button class="btn btn-success" type="submit">Сохранить канал</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </form>
+
 
     <input type="checkbox" id="nav-toggle" hidden>
 
@@ -143,58 +207,61 @@
         </ul>
     </nav>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class = "col-md-3"></div>
-            <div class = "col-md-6">
+    <main role="main">
+        <article>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class = "col-md-3 col-sm-1"></div>
+                    <div class = "col-md-6 col-sm-10">
 
-                <form action="#" autocomplete="off" class="search_form">
-                    <fieldset class="url">
-                        <input id="url" type="text" name="url" required>
-                        <label for="url">
-                            <i class="fa fa-search"></i>
-                            Поиск
-                        </label>
-                        <div class="after"></div>
-                    </fieldset>
+                        <form action="#" autocomplete="off" class="search_form">
+                            <fieldset class="url">
+                                <input id="url" type="text" name="url" required>
+                                <label for="url">
+                                    <i class="fa fa-search"></i>
+                                    Поиск
+                                </label>
+                                <div class="after"></div>
+                            </fieldset>
 
-                </form>
+                        </form>
 
-                <p/><p/>
+                      <ul >
+                        <c:forEach items="${channels}" var="channel">
+                          <li>
+                            <div class = "row container-fluid">
+                                <div class = "col-md-3 col-sm-3 div-img">
+                                    <img src = "${channel.icon}"/>
+                                </div>
+                            <div class = "col-md-8 col-sm-8">
+                                <p/><p/>
+                                <h6><c:out value="${channel.title}"/></h6><p/>
+                                <p><h6>
+                                <small>
+                                    <c:out value="${channel.description}"/>
+                                </small>
+                                </h6>
+                                </p>
+                            </div>
+                            <div class = "col-md-1 col-sm-1 div-img">
+                                <a href="/delete/${channel.id}"><i class="fas fa-times icon"></i></a>
+                            </div>
+                            </div>
+                          </li>
+                        </c:forEach>
+                      </ul>
 
-              <ul >
-                <c:forEach items="${channels}" var="channel">
-                  <li>
-                    <div class = "row container-fluid">
-                        <div class = "col-md-3 div-img">
-                            <img src = "${channel.icon}"/>
-                        </div>
-                    <div class = "col-md-8">
-                        <p/><p/>
-                        <h6><c:out value="${channel.title}"/></h6><p/>
-                        <p><h6>
-                        <small>
-                            <c:out value="${channel.description}"/>
-                        </small>
-                        </h6>
-                        </p>
+                      <div class = "footer">
+                          <div class = "footer_background"></div>
+                         <%-- <a href="#" class="add_button">+ Добавить канал</a>--%>
+                          <a href="" class="btn btn-default add_button" data-toggle="modal" data-target="#modalLoginForm">+ Добавить канал</a>
+                      </div>
                     </div>
-                    <div class = "col-md-1 div-img">
-                        <a href="/delete/${channel.id}"><i class="fas fa-times icon"></i></a>
-                    </div>
-                    </div>
-                  </li>
-                </c:forEach>
-              </ul>
-              <div class = "footer row container-fluid">
-                  Добавить канал
-              </div>
-
+                    <div class = "col-md-3 col-sm-1"></div>
+                </div>
             </div>
-            <div class = "col-md-3"></div>
-        </div>
-    </div>
-
+        </article>
+    </main>
 
 </body>
 </html>

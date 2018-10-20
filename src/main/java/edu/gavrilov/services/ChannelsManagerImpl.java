@@ -18,10 +18,6 @@ public class ChannelsManagerImpl implements ChannelsManager {
     private List<Channel> channels = new ArrayList<>();
     private List<String> urls = new ArrayList<>();
 
-    private final String DB_URL = "jdbc:postgresql://ec2-54-247-123-231.eu-west-1.compute.amazonaws.com:5432/d39p92kdthmrkj";
-    private final String USERNAME = "kfkejvvdvdbgpg";
-    private final String PASSWORD = "947deb00f0e3e44e80ba73581cff634b7d3192ec9e3b47ded577e86e7f712a8b";
-
     private void updateChannelsUrlsList() {
 
         urls = SqlUpdator.getUrlsList();
@@ -96,6 +92,8 @@ public class ChannelsManagerImpl implements ChannelsManager {
 
     @Override
     public void addChannel(String url) {
+
+        SqlUpdator.addUrl(url);
 
     }
 

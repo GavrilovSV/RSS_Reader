@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.util.List;
@@ -44,6 +46,17 @@ public class RSSController {
     public String deleteChannel(@PathVariable int channel_id, Model model) {
 
         channelsManager.deleteChannel(channel_id);
+        return "redirect:/mychannels";
+
+    }
+
+
+
+    @PostMapping("/addchannel")
+    public String addChannel(@RequestParam("newUrl") String url, Model model) {
+
+        System.out.println( "here");
+        channelsManager.addChannel(url);
         return "redirect:/mychannels";
 
     }

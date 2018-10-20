@@ -92,4 +92,18 @@ public class SqlUpdator {
 
     }
 
+    public static void addUrl(String url) {
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD)) {
+
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate("INSERT INTO urls (url) VALUES (\'" + url + "\')");
+
+        } catch (SQLException e) {
+            System.out.println("Connection Failed");
+            e.printStackTrace();
+        }
+
+    }
+
 }
