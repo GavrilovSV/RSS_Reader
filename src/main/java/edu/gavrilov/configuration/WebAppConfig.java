@@ -1,10 +1,7 @@
 package edu.gavrilov.configuration;
 
 import edu.gavrilov.rss.NewsManager;
-import edu.gavrilov.services.ChannelsManager;
-import edu.gavrilov.services.FileChannelsManager;
-import edu.gavrilov.services.FileUrlsManager;
-import edu.gavrilov.services.UrlsManager;
+import edu.gavrilov.services.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -56,7 +53,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 
     @Bean("fileUrlsManager")
     public UrlsManager fileUrlsManager() {
-        return new FileUrlsManager();
+        return new SqlUrlsManager();
     }
 
 
