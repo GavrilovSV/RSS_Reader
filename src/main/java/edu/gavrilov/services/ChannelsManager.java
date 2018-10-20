@@ -8,6 +8,8 @@ public interface ChannelsManager {
 
     List<Channel> getChannelsList();
 
+    List<String> getChannelsUrlsList();
+
     void addChannel(String url);
 
     void deleteChannel(int channel_id);

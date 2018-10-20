@@ -2,32 +2,26 @@ package edu.gavrilov.rss;
 
 import com.rometools.rome.feed.synd.SyndEnclosure;
 import com.rometools.rome.feed.synd.SyndEntry;
-import edu.gavrilov.services.UrlsManager;
+import edu.gavrilov.services.ChannelsManager;
 import edu.gavrilov.xml.XMLReader;
 import org.jsoup.Jsoup;
-
-import java.io.IOException;
 import java.util.*;
 
 public class NewsManager {
 
-    private UrlsManager urlsManager;
-    private static List<Channel> channels = new ArrayList<>();
+    private ChannelsManager channelsManager;
     private XMLReader xmlReader = new XMLReader();
 
-    public NewsManager(UrlsManager urlsManager) {
-        this.urlsManager = urlsManager;
+    public NewsManager(ChannelsManager channelsManager) {
+        this.channelsManager = channelsManager;
     }
 
     public List listNews() {
 
         List allNews = new ArrayList();
-        List<String> urls = null;
-        try {
-            urls = urlsManager.getUrlsList();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        List<String> urls;
+        urls = channelsManager.getChannelsUrlsList();
+
         for (int i = 0; i < urls.size(); i++) {
             try{
                 List news = xmlReader.listNews(urls.get(i));

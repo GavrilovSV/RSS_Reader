@@ -51,22 +51,16 @@ public class WebAppConfig implements WebMvcConfigurer {
     }
 
 
-    @Bean("fileUrlsManager")
-    public UrlsManager fileUrlsManager() {
-        return new SqlUrlsManager();
-    }
-
-
     @Bean
+    @DependsOn(value = {"sqlChannelsManager"})
     public NewsManager newsManager() {
-        return new NewsManager(fileUrlsManager());
+        return new NewsManager(sqlChannelsManager());
     }
 
 
     @Bean
-    @DependsOn(value = {"fileUrlsManager"})
-    public ChannelsManager fileChannelsManager() {
-        FileChannelsManager channelsManager = new FileChannelsManager(fileUrlsManager());
+    public ChannelsManager sqlChannelsManager() {
+        SqlChannelsManager channelsManager = new SqlChannelsManager();
         return channelsManager;
     }
 
