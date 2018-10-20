@@ -89,6 +89,39 @@
             transform: scale(1.05);
         }
 
+        .footer_btn {
+            width: 100px;
+            height: 50px;
+            position: fixed;
+            background: green;
+            left: 50%;
+            bottom: 5%;
+
+            transform: translate(-50%, -5%);
+        }
+
+
+        .footer {
+            margin-left: auto;
+            margin-right: auto;
+            width: 200px;
+            background-color: #eeeeee;
+            height: 150px;
+            position: fixed;
+/*            opacity: 50%;
+            position: fixed;
+            left: 50%;
+            bottom: 1%;
+            transform: translate(-50%, 0);
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+            -moz-filter: blur(5px);
+            -o-filter: blur(5px);
+            -ms-filter: blur(5px);*/
+        }
+
+
+
     </style>
 
 
@@ -110,7 +143,7 @@
         </ul>
     </nav>
 
-    <div class="cont-fluid">
+    <div class="container-fluid">
         <div class="row">
             <div class = "col-md-3"></div>
             <div class = "col-md-6">
@@ -129,7 +162,7 @@
 
                 <p/><p/>
 
-              <ul>
+              <ul >
                 <c:forEach items="${channels}" var="channel">
                   <li>
                     <div class = "row container-fluid">
@@ -153,6 +186,10 @@
                   </li>
                 </c:forEach>
               </ul>
+              <div class = "footer row container-fluid">
+                  Добавить канал
+              </div>
+
             </div>
             <div class = "col-md-3"></div>
         </div>

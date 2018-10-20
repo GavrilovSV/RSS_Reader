@@ -43,9 +43,17 @@ public class ChannelsManagerImpl implements ChannelsManager {
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 SyndFeedInput input = new SyndFeedInput();
                 feed = input.build(new XmlReader(connection));
-                Channel channel = new Channel(feed.getImage().getUrl(), feed.getLink(), feed.getTitle(), feed.getDescription());
-                channel.setId(SqlUpdator.getChannelIdByUrl(link));
-                channels.add(channel);
+                if (feed != null) {
+                    String imgUrl = null;
+                    if (feed.getImage() != null) {
+                        imgUrl = feed.getImage().getUrl();
+                    }
+                    Channel channel = new Channel(imgUrl, feed.getLink(), feed.getTitle(), feed.getDescription());
+                    channel.setId(SqlUpdator.getChannelIdByUrl(link));
+                    channels.add(channel);
+                }
+                else
+                    continue;
             }
 
         } catch (IOException | FeedException e) {
