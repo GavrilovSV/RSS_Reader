@@ -4,16 +4,16 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
+import edu.gavrilov.repositories.SqlUpdator;
 import edu.gavrilov.rss.Channel;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SqlChannelsManager implements ChannelsManager {
+public class ChannelsManagerImpl implements ChannelsManager {
 
     private List<Channel> channels = new ArrayList<>();
     private List<String> urls = new ArrayList<>();
@@ -24,30 +24,7 @@ public class SqlChannelsManager implements ChannelsManager {
 
     private void updateChannelsUrlsList() {
 
-        urls = new ArrayList<>();
-
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            System.out.println("PostgreSQL JDBC Driver is not found. Include it in your library path ");
-            e.printStackTrace();
-        }
-
-        try (Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD)) {
-
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT url FROM urls");
-
-            while (rs.next()) {
-                String url = rs.getString("url");
-                urls.add(url);
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Connection Failed");
-            e.printStackTrace();
-        }
-
+        urls = SqlUpdator.getUrlsList();
 
     }
 
@@ -67,6 +44,7 @@ public class SqlChannelsManager implements ChannelsManager {
                 SyndFeedInput input = new SyndFeedInput();
                 feed = input.build(new XmlReader(connection));
                 Channel channel = new Channel(feed.getImage().getUrl(), feed.getLink(), feed.getTitle(), feed.getDescription());
+                channel.setId(SqlUpdator.getChannelIdByUrl(link));
                 channels.add(channel);
             }
 
@@ -94,12 +72,29 @@ public class SqlChannelsManager implements ChannelsManager {
     }
 
     @Override
+    public Channel getChannelById(int channel_id) {
+
+        Channel found = null;
+        updateChannelsList();
+
+        for (Channel channel: channels) {
+            if (channel.getId() == channel_id) {
+                found = channel;
+            }
+        }
+
+        return found;
+    }
+
+    @Override
     public void addChannel(String url) {
 
     }
 
     @Override
     public void deleteChannel(int channel_id) {
+
+        SqlUpdator.deleteUrlById(channel_id);
 
     }
 

@@ -23,6 +23,7 @@ public class NewsManager {
         urls = channelsManager.getChannelsUrlsList();
 
         for (int i = 0; i < urls.size(); i++) {
+            System.out.println(urls.get(i));
             try{
                 List news = xmlReader.listNews(urls.get(i));
                 news = news.subList(0, 20);
@@ -42,7 +43,12 @@ public class NewsManager {
         while (itEntries.hasNext()) {
             SyndEntry entry = (SyndEntry) itEntries.next();
             List<SyndEnclosure> list = entry.getEnclosures();
-            String pic = list.get(0).getUrl();
+            String pic = null;
+            try {
+                pic = list.get(0).getUrl();
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+             }
 
             String text = Jsoup.parse(entry.getDescription().getValue()).text();
 

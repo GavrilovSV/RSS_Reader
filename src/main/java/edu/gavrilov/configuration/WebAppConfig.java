@@ -60,7 +60,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 
     @Bean
     public ChannelsManager sqlChannelsManager() {
-        SqlChannelsManager channelsManager = new SqlChannelsManager();
+        ChannelsManagerImpl channelsManager = new ChannelsManagerImpl();
         return channelsManager;
     }
 

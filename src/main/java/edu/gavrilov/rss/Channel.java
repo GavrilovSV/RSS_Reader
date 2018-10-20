@@ -2,10 +2,7 @@ package edu.gavrilov.rss;
 
 public class Channel {
 
-    private static int id_gen = 0;
-
-    private int id = id_gen++;
-
+    private int id;
     private String link;
     private String title;
     private String description;
@@ -20,6 +17,10 @@ public class Channel {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getIcon() {

@@ -14,4 +14,6 @@ public interface ChannelsManager {
 
     void deleteChannel(int channel_id);
 
+    Channel getChannelById(int channel_id);
+
 }
