@@ -63,6 +63,7 @@
             <li><a href="/mychannels">  Мои каналы</a>
             <li><a href="#3">  Мой аккаунт</a>
             <li><a href="#2">  О сайте</a>
+            <li><a href="/logout">  Выход</a>
         </ul>
     </nav>
 

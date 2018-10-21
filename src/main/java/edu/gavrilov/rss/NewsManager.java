@@ -23,10 +23,8 @@ public class NewsManager {
         urls = channelsManager.getChannelsUrlsList();
 
         for (int i = 0; i < urls.size(); i++) {
-            System.out.println(urls.get(i));
             try{
                 List news = xmlReader.listNews(urls.get(i));
-                news = news.subList(0, 20);
                 allNews.addAll(news);
             } catch (Exception e) {
                 e.printStackTrace();
