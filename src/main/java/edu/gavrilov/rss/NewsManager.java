@@ -5,8 +5,11 @@ import com.rometools.rome.feed.synd.SyndEntry;
 import edu.gavrilov.services.ChannelsManager;
 import edu.gavrilov.xml.XMLReader;
 import org.jsoup.Jsoup;
+import org.springframework.stereotype.Service;
+
 import java.util.*;
 
+@Service
 public class NewsManager {
 
     private ChannelsManager channelsManager;

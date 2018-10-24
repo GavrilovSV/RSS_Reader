@@ -5,5 +5,10 @@
 <web-app>
   <display-name>RSS Reader by GavrilovSV</display-name>
 
+  <listener>
+    <listener-class>
+      org.springframework.web.context.request.RequestContextListener
+    </listener-class>
+  </listener>
 
 </web-app>

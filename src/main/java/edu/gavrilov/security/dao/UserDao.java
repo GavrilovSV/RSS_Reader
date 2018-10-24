@@ -1,9 +1,11 @@
 package edu.gavrilov.security.dao;
 
 import edu.gavrilov.entity.User;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 
+@Repository
 public class UserDao {
 
     private static final String DB_URL = "jdbc:postgresql://ec2-54-247-123-231.eu-west-1.compute.amazonaws.com:5432/d39p92kdthmrkj";

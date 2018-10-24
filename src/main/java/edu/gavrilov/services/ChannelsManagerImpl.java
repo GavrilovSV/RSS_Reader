@@ -6,6 +6,8 @@ import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 import edu.gavrilov.repositories.SqlUpdator;
 import edu.gavrilov.rss.Channel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -13,14 +15,18 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ChannelsManagerImpl implements ChannelsManager {
+
+    @Autowired
+    SqlUpdator sqlUpdator;
 
     private List<Channel> channels = new ArrayList<>();
     private List<String> urls = new ArrayList<>();
 
     private void updateChannelsUrlsList() {
 
-        urls = SqlUpdator.getUrlsList();
+        urls = sqlUpdator.getUrlsList();
 
     }
 
@@ -45,7 +51,7 @@ public class ChannelsManagerImpl implements ChannelsManager {
                         imgUrl = feed.getImage().getUrl();
                     }
                     Channel channel = new Channel(imgUrl, feed.getLink(), feed.getTitle(), feed.getDescription());
-                    channel.setId(SqlUpdator.getChannelIdByUrl(link));
+                    channel.setId(sqlUpdator.getChannelIdByUrl(link));
                     channels.add(channel);
                 }
                 else
@@ -93,14 +99,14 @@ public class ChannelsManagerImpl implements ChannelsManager {
     @Override
     public void addChannel(String url) {
 
-        SqlUpdator.addUrl(url);
+        sqlUpdator.addUrl(url);
 
     }
 
     @Override
     public void deleteChannel(int channel_id) {
 
-        SqlUpdator.deleteUrlById(channel_id);
+        sqlUpdator.deleteUrlById(channel_id);
 
     }
 

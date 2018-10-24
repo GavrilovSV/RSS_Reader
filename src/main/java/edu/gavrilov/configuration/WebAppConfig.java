@@ -4,10 +4,7 @@ import edu.gavrilov.rss.NewsManager;
 import edu.gavrilov.security.dao.UserDao;
 import edu.gavrilov.security.service.UserService;
 import edu.gavrilov.services.*;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.*;
 import org.springframework.core.Ordered;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -63,28 +60,34 @@ public class WebAppConfig implements WebMvcConfigurer {
     }*/
 
 
+/*
     @Bean
+    @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
     @DependsOn(value = {"sqlChannelsManager"})
     public NewsManager newsManager() {
         return new NewsManager(sqlChannelsManager());
     }
+*/
 
 
-    @Bean
+/*    @Bean
+    @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
     public ChannelsManager sqlChannelsManager() {
         ChannelsManagerImpl channelsManager = new ChannelsManagerImpl();
         return channelsManager;
-    }
+    }*/
 
-    @Bean
+/*    @Bean
+    @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
     public UserDetailsService userService() {
         return new UserService();
-    }
+    }*/
 
-    @Bean
+/*    @Bean
+    @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
     public UserDao userDao() {
         return new UserDao();
-    }
+    }*/
 
     @Bean
     public PasswordEncoder passwordEncoder() {
