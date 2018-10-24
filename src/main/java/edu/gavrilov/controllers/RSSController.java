@@ -1,25 +1,29 @@
 package edu.gavrilov.controllers;
 
-import edu.gavrilov.entity.User;
 import edu.gavrilov.rss.Channel;
 import edu.gavrilov.rss.News;
 import edu.gavrilov.rss.NewsManager;
 import edu.gavrilov.security.dao.UserDao;
 import edu.gavrilov.services.ChannelsManager;
+import edu.gavrilov.validation.LoginForm;
+import edu.gavrilov.validation.RegisterForm;
+import org.omg.CORBA.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 
 @Controller
 public class RSSController {
+
 
     @Autowired
     NewsManager newsManager;
@@ -41,6 +45,7 @@ public class RSSController {
         return "index";
 
     }
+
 
     @GetMapping("/mychannels")
     public String myChannels(Model model) throws IOException {
@@ -69,19 +74,36 @@ public class RSSController {
 
     }
 
+    @GetMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("loginForm", new LoginForm());
+        return "login";
+    }
+
+    @GetMapping("/register")
+    public String register(Model model) {
+        model.addAttribute("registerForm", new RegisterForm());
+        return "register";
+    }
+
     @PostMapping("/register")
-    public String registerUserAccount(@RequestParam("email") String email,
-                                      @RequestParam("password") String password,
-                                      @RequestParam("confirmPassword") String confirmPassword) {
+    public String registerUserAccount(@Valid @ModelAttribute("registerForm") RegisterForm registerForm,
+                                      BindingResult bindingResult,
+                                      Model model) {
 
-        if (!password.equals(confirmPassword))
-            return "redirect:/login";
+        if (!registerForm.getPassword().equals(registerForm.getConfirmPassword())) {
+            bindingResult.rejectValue("confirmPassword", "passwords.mismatch", "Пароли не совпадают");
+        }
 
-        User user = new User();
-        user.setLogin(email);
-        user.setPassword(password);
+        if (userDao.getUserIdByUsername(registerForm.getUsername()) != 0) {
+            bindingResult.rejectValue("username", "email.alreadyused", "Такой email уже зарегистрирован");
+        }
 
-        userDao.createNewAccount(email, passwordEncoder.encode(password));
+        if (bindingResult.hasErrors()) {
+            return "register";
+        }
+
+        userDao.createNewAccount(registerForm.getUsername(), passwordEncoder.encode(registerForm.getPassword()));
 
         return "redirect:/";
 

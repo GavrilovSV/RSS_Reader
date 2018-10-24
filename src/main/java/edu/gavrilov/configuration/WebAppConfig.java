@@ -29,11 +29,11 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan(basePackages = "edu.gavrilov")
 public class WebAppConfig implements WebMvcConfigurer {
 
-    @Override
+/*    @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
-    }
+    }*/
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

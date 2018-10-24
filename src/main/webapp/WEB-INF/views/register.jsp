@@ -6,7 +6,7 @@
 
 <html>
 <head>
-    <title>RSS Reader</title>
+    <title>Регистрация в системе</title>
     <link rel="icon" href = "/resources/icons/g48.ico"/>
 
     <style>
@@ -104,15 +104,21 @@
         }
         body {
             background: #eeeeee; /* fallback for old browsers */
-/*            background: -webkit-linear-gradient(right, #76b852, #8DC26F);
-            background: -moz-linear-gradient(right, #76b852, #8DC26F);
-            background: -o-linear-gradient(right, #76b852, #8DC26F);
-            background: linear-gradient(to left, #76b852, #8DC26F);*/
+            /*            background: -webkit-linear-gradient(right, #76b852, #8DC26F);
+                        background: -moz-linear-gradient(right, #76b852, #8DC26F);
+                        background: -o-linear-gradient(right, #76b852, #8DC26F);
+                        background: linear-gradient(to left, #76b852, #8DC26F);*/
             font-family: "Roboto", sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
+        .errorMessage {
+            color: red;
+            font-size: 13px;
+            text-align: left;
+            margin-bottom: 5px;
+        }
 
     </style>
 
@@ -120,33 +126,26 @@
             src="https://code.jquery.com/jquery-3.3.1.js"
             integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
             crossorigin="anonymous">
-
     </script>
 
 </head>
 <body>
 
 <div class="login-page">
+
+
     <div class="form">
-        <form:form modelAttribute="loginForm" action = "/login" method = "post" class="login-form">
-            <h2>Войдите в систему</h2>
-            <form:errors path="username" cssClass="error"/>
-            <form:input path="username" placeholder="Email"/>
-            <form:errors path="password" cssClass="error"/>
+        <form:form modelAttribute="registerForm" action="/register" method="post">
+            <h2>Создайте аккаунт</h2>
+            <form:errors path="username" cssClass="errorMessage"/>
+            <form:input path = "username" placeholder = "Email"/>
+            <form:errors path="password" cssClass="errorMessage"/>
             <form:password path="password" placeholder="Пароль"/>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <button type="submit" class="btn">Войти</button>
-            <p class="message">Не зарегистрированы? <a href="/register">Создайте аккаунт</a></p>
+            <form:errors path="confirmPassword" cssClass="errorMessage"/>
+            <form:password path="confirmPassword" name = "confirmPassword" placeholder="Подтвердите пароль"/>
+            <button type="submit" class="btn">Зарегистрироваться</button>
+            <p class="message">Уже есть аккаунт? <a href="/login">Авторизируйтесь</a></p>
         </form:form>
-    <%--<form name = "f" action = "/login" method = "post" class="login-form">
-            <h2>Войдите в систему</h2>
-            <input type="text" placeholder="Email" id ="username" name = "username"/>
-            <input type="password" placeholder="Пароль" id = "password" name = "password"/>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <button type="submit" class="btn">Войти</button>
-            <p class="message">Не зарегистрированы? <a href="/register">Создайте аккаунт</a></p>
-        </form>
-    --%>
     </div>
 </div>
 
