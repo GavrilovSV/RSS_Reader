@@ -9,13 +9,22 @@ import edu.gavrilov.validation.LoginForm;
 import edu.gavrilov.validation.RegisterForm;
 import org.omg.CORBA.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
@@ -24,6 +33,8 @@ import java.util.Properties;
 @Controller
 public class RSSController {
 
+    @Autowired
+    AuthenticationManager authenticationManager;
 
     @Autowired
     NewsManager newsManager;
@@ -36,6 +47,9 @@ public class RSSController {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    UserDetailsService userDetailsService;
 
     @GetMapping("/")
     public String main(Model model) throws IOException {
@@ -75,8 +89,11 @@ public class RSSController {
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
-        model.addAttribute("loginForm", new LoginForm());
+    public String login(Model model, String error) {
+
+        if (error != null)
+            model.addAttribute("error", "Неверный email или пароль");
+
         return "login";
     }
 
@@ -89,6 +106,7 @@ public class RSSController {
     @PostMapping("/register")
     public String registerUserAccount(@Valid @ModelAttribute("registerForm") RegisterForm registerForm,
                                       BindingResult bindingResult,
+                                      HttpServletRequest request,
                                       Model model) {
 
         if (!registerForm.getPassword().equals(registerForm.getConfirmPassword())) {
@@ -104,6 +122,18 @@ public class RSSController {
         }
 
         userDao.createNewAccount(registerForm.getUsername(), passwordEncoder.encode(registerForm.getPassword()));
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(registerForm.getUsername());
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(userDetails,
+                                                        passwordEncoder.encode(registerForm.getPassword()),
+                                                        userDetails.getAuthorities());
+
+        authenticationManager.authenticate(authenticationToken);
+
+        if (authenticationToken.isAuthenticated()) {
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        }
 
         return "redirect:/";
 

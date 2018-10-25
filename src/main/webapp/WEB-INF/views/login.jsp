@@ -113,6 +113,14 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
+        .errorMessage {
+            color: red;
+            font-size: 13px;
+        }
+
+        .errorDiv {
+            margin-bottom: 7px;
+        }
 
     </style>
 
@@ -128,12 +136,11 @@
 
 <div class="login-page">
     <div class="form">
-        <form:form modelAttribute="loginForm" action = "/login" method = "post" class="login-form">
+        <form:form action = "/login" method = "post" class="login-form">
             <h2>Войдите в систему</h2>
-            <form:errors path="username" cssClass="error"/>
-            <form:input path="username" placeholder="Email"/>
-            <form:errors path="password" cssClass="error"/>
-            <form:password path="password" placeholder="Пароль"/>
+            <div class = "errorDiv"><span class="errorMessage">${error}</span></div>
+            <input type="text" placeholder="Email" id ="username" name = "username"/>
+            <input type="password" placeholder="Пароль" id = "password" name = "password"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <button type="submit" class="btn">Войти</button>
             <p class="message">Не зарегистрированы? <a href="/register">Создайте аккаунт</a></p>

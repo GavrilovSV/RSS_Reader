@@ -114,10 +114,11 @@
         }
 
         .errorMessage {
+            display: block;
             color: red;
             font-size: 13px;
             text-align: left;
-            margin-bottom: 5px;
+            padding-bottom: 10px;
         }
 
     </style>
