@@ -1,6 +1,6 @@
-package edu.gavrilov.security.dao;
+package edu.gavrilov.repositories.security;
 
-import edu.gavrilov.entity.User;
+import edu.gavrilov.entity.security.User;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -93,6 +93,5 @@ public class UserDao {
         }
 
     }
-
 
 }

@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page isELIgnored ="false" %>
 
 <html>
@@ -73,9 +74,9 @@
             margin: 4px 2px;
             cursor: pointer;
             z-index: 1;
-            -webkit-transition: color .25s ease-in-out;
+/*            -webkit-transition: color .25s ease-in-out;
             -moz-transition: color .25s ease-in-out;
-            transition: color .25s ease-in-out;
+            transition: color .25s ease-in-out;*/
         }
 
         .add_button:hover {
@@ -162,7 +163,7 @@
 <body>
 
 
-        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="Новый канал" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header text-center">
@@ -175,6 +176,7 @@
                         <div class="modal-body mx-3">
 
                             <div class="md-form mb-4">
+                                <span>${error}</span>
                                 <input type="text" name="newUrl"/>
                                 <input type="hidden"
                                        name="${_csrf.parameterName}"
@@ -189,21 +191,44 @@
                 </div>
             </div>
         </div>
-    </form>
+
+        <div class="modal fade" id="aboutSiteForm" tabindex="-1" role="dialog" aria-labelledby="О сайте" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">О сайте</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+
+                            <div class="md-form mb-4">
+                                Разработчик - Гаврилов С.В.<p/>
+                                БГУИР, ФНиДО, кафедра ПОИТ<p/>
+                                4 курс, гр. 591052<p/><p/>
+                                <h6>RSS-Reader</h6><p/>
+                                Сайт разработан в рамках курсового проектирования по дисциплине КСиС<p/>
+                                2018 год
+                            </div>
+
+                        </div>
+                </div>
+            </div>
+        </div>
 
 
-    <input type="checkbox" id="nav-toggle" hidden>
+        <input type="checkbox" id="nav-toggle" hidden>
 
     <nav class="nav">
         <label for="nav-toggle" class="nav-toggle" onclick></label>
         <h2 class="logo">
-            <a href=http://localhost:8080/">Мои каналы</a>
+            <a href="/mychannels">Мои каналы</a>
         </h2>
         <ul>
             <li><a href="/">  Моя лента</a>
             <li><a href="/mychannels">  Мои каналы</a>
-            <li><a href="#3">  Мой аккаунт</a>
-            <li><a href="#2">  О сайте</a>
+            <li><a href="" data-toggle="modal" data-target="#aboutSiteForm">  О сайте</a>
             <li><a href="/logout">  Выход</a>
         </ul>
     </nav>
@@ -255,7 +280,7 @@
                       <div class = "footer">
                           <div class = "footer_background"></div>
                          <%-- <a href="#" class="add_button">+ Добавить канал</a>--%>
-                          <a href="" class="btn btn-default add_button" data-toggle="modal" data-target="#modalLoginForm">+ Добавить канал</a>
+                          <a href="" id = "addbtn" class="btn btn-default add_button" data-toggle="modal" data-target="#modalLoginForm">+ Добавить канал</a>
                       </div>
                     </div>
                     <div class = "col-md-3 col-sm-1"></div>

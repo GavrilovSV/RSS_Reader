@@ -1,6 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.rometools.rome.feed.synd.SyndEntry" %>
-<%@ page import="edu.gavrilov.rss.News" %>
+<%@ page import="edu.gavrilov.entity.rss.News" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -53,16 +53,40 @@
 
     <input type="checkbox" id="nav-toggle" hidden>
 
+    <div class="modal fade" id="aboutSiteForm" tabindex="-1" role="dialog" aria-labelledby="О сайте" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">О сайте</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+
+                    <div class="md-form mb-4">
+                        Разработчик - Гаврилов С.В.<p/>
+                        БГУИР, ФНиДО, кафедра ПОИТ<p/>
+                        4 курс, гр. 591052<p/><p/>
+                        <h6>RSS-Reader</h6><p/>
+                        Сайт разработан в рамках курсового проектирования по дисциплине КСиС<p/>
+                        2018 год
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <nav class="nav">
         <label for="nav-toggle" class="nav-toggle" onclick></label>
         <h2 class="logo">
-            <a href=http://localhost:8080/">Моя лента</a>
+            <a href="/">Моя лента</a>
         </h2>
         <ul>
             <li><a href="/">  Моя лента</a>
             <li><a href="/mychannels">  Мои каналы</a>
-            <li><a href="#3">  Мой аккаунт</a>
-            <li><a href="#2">  О сайте</a>
+            <li><a href="" data-toggle="modal" data-target="#aboutSiteForm">  О сайте</a>
             <li><a href="/logout">  Выход</a>
         </ul>
     </nav>

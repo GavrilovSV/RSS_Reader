@@ -13,6 +13,27 @@
 
         @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+ /*       .login_button {
+            background-color: #16a085;
+            border: none;
+            color: #dadada;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            margin: 4px 2px;
+            cursor: pointer;
+            z-index: 1;
+            !*            -webkit-transition: color .25s ease-in-out;
+                        -moz-transition: color .25s ease-in-out;
+                        transition: color .25s ease-in-out;*!
+        }
+
+        .login_button:hover {
+            color: #f4f4f4;
+        }*/
+
         .login-page {
             width: 360px;
             padding: 8% 0 0;
@@ -48,14 +69,14 @@
             width: 100%;
             border: 0;
             padding: 15px;
-            color: #FFFFFF;
-            font-size: 14px;
+            color: #dadada;
+            font-size: 15px;
             -webkit-transition: all 0.3s ease;
             transition: all 0.3s ease;
             cursor: pointer;
         }
         .form button:hover,.form button:active,.form button:focus {
-            background: #43A047;
+            color: #f4f4f4;
         }
         .form .message {
             margin: 15px 0 0;
@@ -136,24 +157,17 @@
 
 <div class="login-page">
     <div class="form">
+
         <form:form action = "/login" method = "post" class="login-form">
             <h2>Войдите в систему</h2>
             <div class = "errorDiv"><span class="errorMessage">${error}</span></div>
             <input type="text" placeholder="Email" id ="username" name = "username"/>
             <input type="password" placeholder="Пароль" id = "password" name = "password"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <button type="submit" class="btn">Войти</button>
+            <button type="submit" class="login_button">Войти</button>
             <p class="message">Не зарегистрированы? <a href="/register">Создайте аккаунт</a></p>
         </form:form>
-    <%--<form name = "f" action = "/login" method = "post" class="login-form">
-            <h2>Войдите в систему</h2>
-            <input type="text" placeholder="Email" id ="username" name = "username"/>
-            <input type="password" placeholder="Пароль" id = "password" name = "password"/>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <button type="submit" class="btn">Войти</button>
-            <p class="message">Не зарегистрированы? <a href="/register">Создайте аккаунт</a></p>
-        </form>
-    --%>
+
     </div>
 </div>
 

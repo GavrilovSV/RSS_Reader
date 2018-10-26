@@ -1,12 +1,13 @@
-package edu.gavrilov.rss;
+package edu.gavrilov.services.rss;
 
 import com.rometools.rome.feed.synd.SyndEnclosure;
 import com.rometools.rome.feed.synd.SyndEntry;
-import edu.gavrilov.services.ChannelsManager;
-import edu.gavrilov.xml.XMLReader;
+import com.rometools.rome.io.FeedException;
+import edu.gavrilov.entity.rss.News;
 import org.jsoup.Jsoup;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -19,21 +20,22 @@ public class NewsManager {
         this.channelsManager = channelsManager;
     }
 
-    public List listNews() {
+    public List listNews() throws IOException, FeedException {
 
         List allNews = new ArrayList();
         List<String> urls;
         urls = channelsManager.getChannelsUrlsList();
 
         for (int i = 0; i < urls.size(); i++) {
-            try{
                 List news = xmlReader.listNews(urls.get(i));
                 allNews.addAll(news);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
-        allNews = sortNews(allNews);
+
+        try {
+            allNews = sortNews(allNews);
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
 
         return allNews;
     }
@@ -48,7 +50,7 @@ public class NewsManager {
             try {
                 pic = list.get(0).getUrl();
             } catch (IndexOutOfBoundsException e) {
-                e.printStackTrace();
+                //do nothing
              }
 
             String text = Jsoup.parse(entry.getDescription().getValue()).text();

@@ -1,10 +1,12 @@
-package edu.gavrilov.security.service;
+package edu.gavrilov.services.security;
 
-import edu.gavrilov.entity.User;
-import edu.gavrilov.security.dao.UserDao;
+import edu.gavrilov.entity.security.User;
+import edu.gavrilov.repositories.security.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,4 +32,19 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
 
     }
+
+    public void autoLogin(String username, String password) {
+
+        UserDetails userDetails = loadUserByUsername(username);
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(userDetails,
+                        password,
+                        userDetails.getAuthorities());
+
+        if (authenticationToken.isAuthenticated()) {
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        }
+
+    }
+
 }

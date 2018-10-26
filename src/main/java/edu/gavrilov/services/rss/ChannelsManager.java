@@ -1,6 +1,6 @@
-package edu.gavrilov.services;
+package edu.gavrilov.services.rss;
 
-import edu.gavrilov.rss.Channel;
+import edu.gavrilov.entity.rss.Channel;
 
 import java.util.List;
 

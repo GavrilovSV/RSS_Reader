@@ -1,4 +1,4 @@
-package edu.gavrilov.rss;
+package edu.gavrilov.entity.rss;
 
 public class Channel {
 

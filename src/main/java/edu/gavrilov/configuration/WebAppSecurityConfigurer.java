@@ -1,6 +1,5 @@
 package edu.gavrilov.configuration;
 
-import edu.gavrilov.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,10 +38,10 @@ public class WebAppSecurityConfigurer extends WebSecurityConfigurerAdapter {
                     .and()
                 .formLogin()
                     .loginPage("/login")
-                    .permitAll()
-                    .and()
+                    .permitAll();
+/*                    .and()
                 .logout()
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"));*/
 
     }
 

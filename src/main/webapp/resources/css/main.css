@@ -270,6 +270,10 @@ p {
     transform: translateX(160px);
 }
 
+#nav-toggle:checked + .add_button  {
+    opacity: 0;
+}
+
 
 /*
  * изменение символа переключателя,
