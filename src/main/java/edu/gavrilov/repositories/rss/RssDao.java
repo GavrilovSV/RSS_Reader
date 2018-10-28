@@ -70,6 +70,28 @@ public class RssDao {
 
     }
 
+    public boolean currentUserIsSignedToChannel(int user_id, String url) {
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD)) {
+
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT user_id from urls WHERE url = \'" + url + "\'");
+
+            while (rs.next()) {
+                int id = rs.getInt("user_id");
+                if (id == user_id)
+                    return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Connection Failed");
+            e.printStackTrace();
+        }
+
+        return false;
+
+    }
+
     public void deleteUrlById(int channel_id) {
 
         try (Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD)) {

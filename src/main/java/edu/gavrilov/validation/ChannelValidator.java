@@ -2,14 +2,18 @@ package edu.gavrilov.validation;
 
 import com.rometools.rome.io.FeedException;
 import edu.gavrilov.repositories.rss.RssDao;
+import edu.gavrilov.repositories.security.UserDao;
 import edu.gavrilov.services.rss.NewsManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 import java.io.IOException;
 
 public class ChannelValidator {
+
+    @Autowired
+    UserDao userDao;
 
     @Autowired
     RssDao rssDao;
@@ -25,8 +29,15 @@ public class ChannelValidator {
 
     public boolean isValid(String url) {
 
-        if (rssDao.getChannelIdByUrl(url) != 0) {
-            message = "Вы уже подписаны на этот канал";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        int user_id = userDao.getUserIdByUsername(currentPrincipalName);
+
+        int channel_id = rssDao.getChannelIdByUrl(url);
+
+        if ((channel_id != 0) && (rssDao.currentUserIsSignedToChannel(user_id, url))) {
+                message = "Вы уже подписаны на этот канал";
             return false;
         }
 

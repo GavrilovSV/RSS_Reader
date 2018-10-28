@@ -1,5 +1,6 @@
 package edu.gavrilov.controllers;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.rometools.rome.io.FeedException;
 import edu.gavrilov.entity.rss.*;
 import edu.gavrilov.services.rss.*;
@@ -60,6 +61,7 @@ public class RSSController {
 
     }
 
+
     @PostMapping("/addchannel")
     public String addChannel(@RequestParam("newUrl") String url,
                              Model model) {
@@ -74,5 +76,7 @@ public class RSSController {
         return "redirect:/mychannels";
 
     }
+
+
 
 }

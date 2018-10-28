@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-
     <!-- Google Web Fonts  -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900&amp;subset=cyrillic" rel="stylesheet">
 
@@ -159,6 +158,7 @@
     </style>
 
 
+
 </head>
 <body>
 
@@ -188,6 +188,7 @@
                             <button class="btn btn-success" type="submit">Сохранить канал</button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -221,7 +222,7 @@
         <input type="checkbox" id="nav-toggle" hidden>
 
     <nav class="nav">
-        <label for="nav-toggle" class="nav-toggle" onclick></label>
+        <label for="nav-toggle" class="nav-toggle" id ="nvtgl" onclick></label>
         <h2 class="logo">
             <a href="/mychannels">Мои каналы</a>
         </h2>
@@ -288,6 +289,20 @@
             </div>
         </article>
     </main>
+
+        <script>
+
+            $("#nav-toggle").change(function(){
+
+               if (this.checked)
+                $("#addbtn").hide('slow');
+               else if (!this.checked)
+                $("#addbtn").show('slow');
+
+            });
+
+        </script>
+
 
 </body>
 </html>
