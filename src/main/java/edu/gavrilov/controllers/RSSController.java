@@ -29,13 +29,13 @@ public class RSSController {
     ChannelValidator channelValidator;
 
     @GetMapping("/")
-    public String main(Model model) throws IOException {
+    public String main(Model model) {
 
         List<News> news = null;
 
         try {
             news = newsManager.listNews();
-        } catch (FeedException e) {
+        } catch (FeedException | IOException e) {
             e.printStackTrace();
         }
 
@@ -45,7 +45,7 @@ public class RSSController {
     }
 
     @GetMapping("/mychannels")
-    public String myChannels(Model model) throws IOException {
+    public String myChannels(Model model) {
 
         List<Channel> channels = channelsManager.getChannelsList();
         model.addAttribute("channels", channels);
