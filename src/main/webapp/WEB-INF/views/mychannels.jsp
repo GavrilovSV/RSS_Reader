@@ -7,10 +7,18 @@
 <head>
     <title>Мои каналы</title>
 
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+
     <link rel="icon" href = "/resources/icons/g48.ico"/>
     <link href = "/resources/css/main.css" rel = "stylesheet">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <%--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>--%>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
@@ -168,16 +176,16 @@
                 <div class="modal-content">
                     <div class="modal-header text-center">
                         <h4 class="modal-title w-100 font-weight-bold">Новый канал</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id = "close_btn" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action = "/addchannel" method="post" role="form">
+<%--                    <form action = "/addchannel" method="post" role="form">--%>
                         <div class="modal-body mx-3">
 
                             <div class="md-form mb-4">
-                                <span>${error}</span>
-                                <input type="text" name="newUrl"/>
+                                <span id = "result">${error}</span>
+                                <input type="text" id = "new_url" name="newUrl"/>
                                 <input type="hidden"
                                        name="${_csrf.parameterName}"
                                        value="${_csrf.token}"/>
@@ -185,9 +193,11 @@
 
                         </div>
                         <div class="modal-footer d-flex justify-content-center">
-                            <button class="btn btn-success" type="submit">Сохранить канал</button>
+                            <button id="sbmt" class="btn btn-success" type="submit">Сохранить канал</button>
                         </div>
+<%--
                     </form>
+--%>
 
                 </div>
             </div>
@@ -290,6 +300,8 @@
         </article>
     </main>
 
+        <script src="/resources/js/jquery.cookie.js"></script>
+
         <script>
 
             $("#nav-toggle").change(function(){
@@ -300,6 +312,44 @@
                 $("#addbtn").show('slow');
 
             });
+
+            $("#sbmt").click(function () {
+
+                var button = $(this);
+                var html = button.html();
+
+                button.html('<i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i><span class="sr-only">Выполняется проверка</span>');
+
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
+
+                var channelWrapper = {};
+                channelWrapper["url"] = $("#new_url").val();
+
+                $.ajax({
+                    url: "addchannel",
+                    contentType : "application/json",
+                    method: "POST",
+                    dataType: "text",
+                    data: JSON.stringify(channelWrapper),
+                    beforeSend: function(request) {
+                        request.setRequestHeader(header, token);
+                    },
+                    success: function (data) {
+                        $("#result").html(data);
+                        button.html(html);
+                    }
+
+                });
+
+            });
+
+
+            $("#close_btn").click(function () {
+                location.reload();
+            });
+
+
 
         </script>
 

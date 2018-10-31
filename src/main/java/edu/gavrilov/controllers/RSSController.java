@@ -5,6 +5,7 @@ import com.rometools.rome.io.FeedException;
 import edu.gavrilov.entity.rss.*;
 import edu.gavrilov.services.rss.*;
 import edu.gavrilov.validation.ChannelValidator;
+import edu.gavrilov.validation.ChannelWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
@@ -62,7 +63,7 @@ public class RSSController {
     }
 
 
-    @PostMapping("/addchannel")
+/*    @PostMapping("/addchannel")
     public String addChannel(@RequestParam("newUrl") String url,
                              Model model) {
 
@@ -76,7 +77,21 @@ public class RSSController {
         return "redirect:/mychannels";
 
     }
+    */
 
+    @RequestMapping(value = "/addchannel", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+    public @ResponseBody String addChannel(@RequestBody ChannelWrapper channelWrapper) {
+
+        String url = channelWrapper.getUrl();
+
+        if (!channelValidator.isValid(url)) {
+            return channelValidator.getMessage();
+        }
+
+        channelsManager.addChannel(url);
+        return "Канал успешно добавлен";
+
+    }
 
 
 }

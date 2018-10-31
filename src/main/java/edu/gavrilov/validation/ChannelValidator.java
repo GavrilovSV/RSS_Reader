@@ -4,6 +4,7 @@ import com.rometools.rome.io.FeedException;
 import edu.gavrilov.repositories.rss.RssDao;
 import edu.gavrilov.repositories.security.UserDao;
 import edu.gavrilov.services.rss.NewsManager;
+import edu.gavrilov.services.rss.XMLReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +21,8 @@ public class ChannelValidator {
 
     @Autowired
     NewsManager newsManager;
+
+    private XMLReader xmlReader = new XMLReader();
 
     private String message;
 
@@ -42,8 +45,9 @@ public class ChannelValidator {
         }
 
         try {
-            newsManager.listNews();
+            xmlReader.listNews(url);
         } catch (IOException | FeedException e) {
+            System.out.println("error caught");
             message = "Ссылка не является валидным RSS-каналом";
             return false;
         }
