@@ -5,13 +5,22 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 
+/**
+ * Класс-репозиторий для работы со списком пользователей в базе данных
+ */
 @Repository
 public class UserDao {
 
+    //Реквизиты для доступа к БД
     private static final String DB_URL = "jdbc:postgresql://ec2-54-247-123-231.eu-west-1.compute.amazonaws.com:5432/d39p92kdthmrkj";
     private static final String USERNAME = "kfkejvvdvdbgpg";
     private static final String PASSWORD = "947deb00f0e3e44e80ba73581cff634b7d3192ec9e3b47ded577e86e7f712a8b";
 
+    /**
+     * Метод для получения объекта класса "Пользователь" по имени пользователя
+     * @param username - имя пользователя
+     * @return User object
+     */
     public User getUserByUsername(String username) {
 
         User user = new User();
@@ -42,6 +51,11 @@ public class UserDao {
 
     }
 
+    /**
+     * Метод для получения уникального идентификатора пользователя по имени пользователя
+     * @param username - имя пользователя
+     * @return User object
+     */
     public int getUserIdByUsername(String username) {
 
         try {
@@ -71,6 +85,12 @@ public class UserDao {
 
     }
 
+    /**
+     * Метод для создания нового аккаунта по логину и паролю
+     * @param username - логин
+     * @param password - пароль
+     * @return true or false
+     */
     public boolean createNewAccount(String username, String password) {
 
         try {

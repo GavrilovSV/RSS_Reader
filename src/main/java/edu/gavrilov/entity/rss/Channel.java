@@ -1,5 +1,9 @@
 package edu.gavrilov.entity.rss;
 
+/**
+ * Класс-сущность объекта "Канал"
+ */
+
 public class Channel {
 
     private int id;

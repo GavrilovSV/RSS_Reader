@@ -1,6 +1,8 @@
 package edu.gavrilov.entity.security;
 
-
+/**
+ * Класс-сущность объекта "Пользователь"
+ */
 public class User {
 
     private String login;

@@ -11,6 +11,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+/**
+ * Класс-конфигуратор веб-приложения Spring
+ * Регистрация основных бинов
+ */
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "edu.gavrilov")

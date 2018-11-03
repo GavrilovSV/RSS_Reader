@@ -1,6 +1,5 @@
 package edu.gavrilov.controllers;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.rometools.rome.io.FeedException;
 import edu.gavrilov.entity.rss.*;
 import edu.gavrilov.services.rss.*;
@@ -13,6 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
+
+/**
+ * Контроллер осноной логики приложения
+ * Обрабатывает запросы на отображение списка новостей/каналов
+ * Обрабатывает запрос на добавление и удаление каналов
+ */
 
 @Controller
 public class RSSController {
@@ -63,22 +68,6 @@ public class RSSController {
     }
 
 
-/*    @PostMapping("/addchannel")
-    public String addChannel(@RequestParam("newUrl") String url,
-                             Model model) {
-
-        if (!channelValidator.isValid(url)) {
-            model.addAttribute("error", channelValidator.getMessage());
-            System.out.println(channelValidator.getMessage());
-            return "redirect:/mychannels";
-        }
-
-        channelsManager.addChannel(url);
-        return "redirect:/mychannels";
-
-    }
-    */
-
     @RequestMapping(value = "/addchannel", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
     public @ResponseBody String addChannel(@RequestBody ChannelWrapper channelWrapper) {
 
@@ -92,6 +81,5 @@ public class RSSController {
         return "Канал успешно добавлен";
 
     }
-
 
 }

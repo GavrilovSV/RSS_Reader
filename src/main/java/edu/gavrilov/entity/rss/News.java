@@ -1,5 +1,9 @@
 package edu.gavrilov.entity.rss;
 
+/**
+ * Класс-сущность объекта "Новость"
+ */
+
 public class News {
 
     private String title;

@@ -11,6 +11,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.io.IOException;
 
+/**
+ * Класс-валидатор каналов
+ */
 public class ChannelValidator {
 
     @Autowired
@@ -26,10 +29,19 @@ public class ChannelValidator {
 
     private String message;
 
+    /**
+     * Метод, возвраюащий сообщение с результатом валидации
+     * @return
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     * Метод, осуществляющий проверку канала
+     * @param url - ссылка на канад
+     * @return success or failure
+     */
     public boolean isValid(String url) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

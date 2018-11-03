@@ -1,5 +1,9 @@
 package edu.gavrilov.validation;
 
+/**
+ * Класс-обертка над ссылками
+ * Используется для работы с ajax
+ */
 public class ChannelWrapper {
 
     private String url;

@@ -15,12 +15,21 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Сервисный класс, необходимы для работы Spring Security
+ */
 @Service
 public class UserService implements UserDetailsService {
 
     @Autowired
     UserDao userDao;
 
+    /**
+     * Метод для получения объекта класса UserDetails
+     * @param username - имя пользователя
+     * @return UserDetails object
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -33,6 +42,11 @@ public class UserService implements UserDetailsService {
 
     }
 
+    /**
+     * Метод для автоматической авторизации после регистрации
+     * @param username - имя пользователя
+     * @param password - пароль пользователя
+     */
     public void autoLogin(String username, String password) {
 
         UserDetails userDetails = loadUserByUsername(username);

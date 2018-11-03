@@ -2,6 +2,9 @@ package edu.gavrilov.configuration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+/**
+ * Класс для конфигурирования DispatcherServlet
+ */
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override

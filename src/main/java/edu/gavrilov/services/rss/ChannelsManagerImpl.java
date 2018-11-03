@@ -15,6 +15,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Сервисный класс
+ * Реализация интерфейса ChannelsManager
+ */
 @Service
 public class ChannelsManagerImpl implements ChannelsManager {
 

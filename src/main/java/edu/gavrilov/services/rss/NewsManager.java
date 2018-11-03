@@ -10,16 +10,29 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Класс-сервис для работы со списокм новостей
+ */
 @Service
 public class NewsManager {
 
     private ChannelsManager channelsManager;
     private XMLReader xmlReader = new XMLReader();
 
+    /**
+     * Конструктор класс
+     * @param channelsManager - ChannelsManager object
+     */
     public NewsManager(ChannelsManager channelsManager) {
         this.channelsManager = channelsManager;
     }
 
+    /**
+     * Метод для получения списка новостей
+     * @return список новостей
+     * @throws IOException
+     * @throws FeedException
+     */
     public List listNews() throws IOException, FeedException {
 
         List allNews = new ArrayList();
@@ -40,6 +53,11 @@ public class NewsManager {
         return allNews;
     }
 
+    /**
+     * Метод для сортировки агрегированного списка новостей
+     * @param listNews - список новостей
+     * @return отсортированный список новостей
+     */
     private List sortNews(List listNews) {
         List news = new ArrayList();
         Iterator itEntries = listNews.iterator();
@@ -67,11 +85,13 @@ public class NewsManager {
         return news;
     }
 
+    /**
+     * Объект-компаратор для сортироки списка новостей по дате
+     */
     static Comparator<News> snorderer = new Comparator<News>() {
         public int compare(News o1, News o2) {
             return Long.valueOf(o2.getTime()).compareTo(Long.valueOf(o1.getTime()));
         }
     };
-
 
 }

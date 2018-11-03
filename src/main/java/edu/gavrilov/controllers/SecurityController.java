@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+/**
+ * Класс-контроллер модуля безопасности
+ * Предназначен для обработки запросов регистрации и авторизации
+ */
+
 @Controller
 public class SecurityController {
 
